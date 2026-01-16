@@ -1,0 +1,153 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* --- Header Styles --- */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    width: 250px;
+}
+
+button#addTaskBtn {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button#addTaskBtn:hover {
+    background-color: #218838;
+}
+
+/* --- Board Layout --- */
+.board {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+    overflow-x: auto; /* Allows scrolling on small screens */
+}
+
+.column {
+    background-color: #e2e4e6;
+    border-radius: 8px;
+    width: 350px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    height: 100%;
+}
+
+.column h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.task-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100px; /* Crucial for dropping into empty columns */
+}
+
+/* --- Card Styles (Updated) --- */
+.card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: grab;
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Push text left, buttons right */
+    align-items: center; /* Vertically center items */
+    gap: 10px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card.dragging {
+    opacity: 0.5;
+    border: 2px dashed #666;
+}
+
+/* The Editable Text Area */
+.task-text {
+    flex: 1; /* Takes all available space */
+    outline: none; /* Removes browser default border on focus */
+    word-break: break-word; /* Wraps long text */
+    cursor: text;
+}
+
+/* Visual cue when the user is typing */
+.task-text[contenteditable="true"] {
+    border-bottom: 2px solid #28a745;
+    background-color: #f9f9f9;
+    padding: 2px;
+}
+
+/* --- Button Styles --- */
+.actions {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0; /* Prevents buttons from squishing */
+}
+
+.btn-sm {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.edit-btn {
+    color: #007bff; /* Blue */
+}
+.edit-btn:hover {
+    background-color: #eef5ff;
+}
+
+.delete-btn {
+    color: #ff4d4d; /* Red */
+}
+.delete-btn:hover {
+    background-color: #ffeaea;
+}
