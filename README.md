@@ -12,7 +12,7 @@ Ensure your files are organized exactly like this before running the application
 my-kanban-board/
 │
 ├── Backend/
-│   ├── node_modules/       # (Generated after running npm install)
+│   ├── node_modules/       # (Generated after running npm install bcryptjs jsonwebtoken dotenv crypto)
 │   ├── .env                # ⚠️ Security variables (You must create this)
 │   ├── package.json        # Backend dependencies & scripts
 │   ├── package-lock.json   # Dependency lock file
