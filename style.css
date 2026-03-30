@@ -8,146 +8,172 @@
 body {
     background-color: #f4f7f6;
     display: flex;
-    flex-direction: column;
     height: 100vh;
+    overflow: hidden; /* Prevent body scroll, handle in containers */
 }
 
-/* --- Header Styles --- */
-header {
-    background-color: #333;
+/* --- Layout: Sidebar & Main --- */
+.sidebar {
+    width: 260px;
+    background-color: #2c3e50;
     color: white;
-    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4a6278;
+}
+
+.board-list {
+    list-style: none;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.board-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #34495e;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.board-item:hover, .board-item.active {
+    background-color: #3498db;
+}
+
+.sidebar-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #4a6278;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* --- Header & Tabs --- */
+.main-header {
+    background-color: white;
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
-.input-group {
-    display: flex;
-    gap: 10px;
-}
+.header-top h1 { color: #2c3e50; font-size: 1.8rem; }
 
-input {
-    padding: 8px;
-    border-radius: 4px;
-    border: none;
-    width: 250px;
-}
+.view-tabs { display: flex; gap: 10px; }
 
-button#addTaskBtn {
+.tab-btn {
     padding: 8px 16px;
-    background-color: #28a745;
-    color: white;
     border: none;
-    border-radius: 4px;
+    background: #ecf0f1;
+    color: #7f8c8d;
+    border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
+    transition: all 0.2s;
 }
 
-button#addTaskBtn:hover {
-    background-color: #218838;
-}
+.tab-btn.active { background: #3498db; color: white; }
 
-/* --- Board Layout --- */
-.board {
-    display: flex;
-    flex: 1;
-    padding: 20px;
-    gap: 20px;
-    overflow-x: auto; /* Allows scrolling on small screens */
-}
+.input-group { display: flex; gap: 10px; }
+input { padding: 10px; border-radius: 4px; border: 1px solid #bdc3c7; }
+input[type="text"] { flex: 1; }
+input[type="date"] { width: 150px; }
+
+/* --- Buttons --- */
+.btn-primary { background-color: #2ecc71; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-primary:hover { background-color: #27ae60; }
+.btn-primary-outline { background: transparent; color: #3498db; border: 1px dashed #3498db; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 10px;}
+.btn-danger-outline { background: transparent; color: #e74c3c; border: 1px solid #e74c3c; padding: 8px; border-radius: 4px; cursor: pointer; }
+
+/* --- Kanban Board --- */
+.view-section { padding: 20px 30px; flex: 1; display: flex; flex-direction: column; }
+.board { display: flex; gap: 20px; flex: 1; overflow-x: auto; padding-bottom: 10px; }
 
 .column {
-    background-color: #e2e4e6;
+    background-color: #ecf0f1;
     border-radius: 8px;
     width: 350px;
     min-width: 300px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    height: 100%;
+    padding: 15px;
 }
 
-.column h2 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    text-align: center;
-    color: #333;
-}
+.column h2 { font-size: 1.1rem; color: #34495e; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+.badge { background: #bdc3c7; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; }
 
-.task-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-height: 100px; /* Crucial for dropping into empty columns */
-}
+.task-container { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 150px; }
 
-/* --- Card Styles (Updated) --- */
+/* Feature: Kanban Task Status Colors */
+.card.overdue { border-left-color: #e74c3c; }      /* Red */
+.card.inprogress { border-left-color: #f39c12; }   /* Yellow */
+.card.done { border-left-color: #2ecc71; opacity: 0.7; } /* Green */
+
+/* --- Task Cards --- */
 .card {
     background-color: white;
     padding: 15px;
     border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     cursor: grab;
-    display: flex; /* Flexbox for layout */
-    justify-content: space-between; /* Push text left, buttons right */
-    align-items: center; /* Vertically center items */
-    gap: 10px;
-    transition: transform 0.2s, opacity 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-}
-
-.card.dragging {
-    opacity: 0.5;
-    border: 2px dashed #666;
-}
-
-/* The Editable Text Area */
-.task-text {
-    flex: 1; /* Takes all available space */
-    outline: none; /* Removes browser default border on focus */
-    word-break: break-word; /* Wraps long text */
-    cursor: text;
-}
-
-/* Visual cue when the user is typing */
-.task-text[contenteditable="true"] {
-    border-bottom: 2px solid #28a745;
-    background-color: #f9f9f9;
-    padding: 2px;
-}
-
-/* --- Button Styles --- */
-.actions {
     display: flex;
-    gap: 5px;
-    flex-shrink: 0; /* Prevents buttons from squishing */
+    flex-direction: column; /* Stack text and footer */
+    gap: 8px;
+    border-left: 4px solid #3498db; /* Default border */
 }
 
-.btn-sm {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 4px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
+/* Feature: Task Deadlines */
+.card.overdue { border-left-color: #e74c3c; }
+.card.done { border-left-color: #2ecc71; opacity: 0.7; }
 
-.edit-btn {
-    color: #007bff; /* Blue */
-}
-.edit-btn:hover {
-    background-color: #eef5ff;
-}
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.task-text { flex: 1; outline: none; word-break: break-word; font-size: 0.95rem; color: #2c3e50; }
+.task-deadline { font-size: 0.8rem; color: #7f8c8d; display: flex; align-items: center; gap: 5px; }
+.overdue-text { color: #e74c3c; font-weight: bold; }
 
-.delete-btn {
-    color: #ff4d4d; /* Red */
-}
-.delete-btn:hover {
-    background-color: #ffeaea;
-}
+.actions { display: flex; gap: 5px; }
+.btn-sm { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 4px; border-radius: 4px; }
+.edit-btn { color: #f39c12; }
+.delete-btn { color: #e74c3c; }
+
+/* --- Calendar View --- */
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.calendar-grid-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: bold; color: #7f8c8d; margin-bottom: 10px; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; flex: 1; }
+.calendar-day { background: white; border-radius: 6px; padding: 10px; min-height: 100px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column;}
+.calendar-day .day-num { font-weight: bold; color: #95a5a6; margin-bottom: 5px; }
+.calendar-task { background: #3498db; color: white; padding: 4px 6px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.calendar-task.inprogress { background: #f39c12; } /* Yellow */
+.calendar-task.done { background: #2ecc71; opacity: 0.8; } /* Green */
+.calendar-task.overdue { background: #e74c3c; }
+
+/* --- Analytics Dashboard --- */
+.analytics-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.stat-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; }
+.stat-card h3 { color: #7f8c8d; font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.stat-number { font-size: 3rem; font-weight: bold; color: #2c3e50; }
+.stat-number.success { color: #2ecc71; }
+.stat-number.danger { color: #e74c3c; }
