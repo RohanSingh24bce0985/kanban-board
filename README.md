@@ -22,3 +22,4 @@ my-kanban-board/
 ├── login.html              # Authentication UI (Login / Register)
 ├── style.css               # Global styles & CSS Grid layouts
 └── script.js               # Frontend SPA controller & secure API fetcher
+'''
