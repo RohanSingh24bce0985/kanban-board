@@ -3,36 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Kanban Board</title>
+    <title>Enterprise Kanban Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>My Kanban Board</h1>
-        <div class="input-group">
-            <input type="text" id="taskInput" placeholder="Enter a new task...">
-            <button id="addTaskBtn">Add Task</button>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>My Projects</h2>
         </div>
-    </header>
+        <ul id="board-list" class="board-list">
+            </ul>
+        <button id="addBoardBtn" class="btn-primary-outline">+ New Board</button>
+        
+        <div class="sidebar-footer">
+            <span id="userInfo">Logged in as: <strong>...</strong></span>
+            <button id="logoutBtn" class="btn-danger-outline">Logout</button>
+        </div>
+    </aside>
 
-    <div class="board">
-        <div class="column" id="todo">
-            <h2>To Do</h2>
-            <div class="task-container" id="todo-container">
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-top">
+                <div class="board-header-title" style="display: flex; align-items: center; gap: 15px;">
+                    <h1 id="currentBoardTitle">Select a Board</h1>
+                    <div class="board-actions" id="boardActions" style="display: none;">
+                        <button id="editBoardBtn" style="background:none; border:none; cursor:pointer; font-size:1.2rem;" title="Rename Board">✏️</button>
+                        <button id="deleteBoardBtn" style="background:none; border:none; cursor:pointer; font-size:1.2rem;" title="Delete Board">🗑️</button>
+                    </div>
+                </div>
+                
+                <nav class="view-tabs">
+                    <button class="tab-btn active" data-target="kanban-view">Kanban</button>
+                    <button class="tab-btn" data-target="calendar-view">Calendar</button>
+                    <button class="tab-btn" data-target="analytics-view">Analytics</button>
+                </nav>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="Enter a new task...">
+                <input type="date" id="taskDeadline" title="Set a deadline (Optional)">
+                <button id="addTaskBtn" class="btn-primary">Add Task</button>
+            </div>
+        </header>
+
+        <div id="kanban-view" class="view-section active">
+            <div class="board">
+                <div class="column" id="todo">
+                    <h2>To Do <span class="badge" id="badge-todo">0</span></h2>
+                    <div class="task-container" id="todo-container" data-status="todo"></div>
+                </div>
+
+                <div class="column" id="inprogress">
+                    <h2>In Progress <span class="badge" id="badge-inprogress">0</span></h2>
+                    <div class="task-container" id="inprogress-container" data-status="inprogress"></div>
+                </div>
+
+                <div class="column" id="done">
+                    <h2>Done <span class="badge" id="badge-done">0</span></h2>
+                    <div class="task-container" id="done-container" data-status="done"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calendar-view" class="view-section" style="display: none;">
+            <div class="calendar-header">
+                <button id="prevMonth" class="btn-icon">&lt; Prev</button>
+                <h2 id="calendarMonthYear">Month Year</h2>
+                <button id="nextMonth" class="btn-icon">Next &gt;</button>
+            </div>
+            <div class="calendar-grid-header">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+                <div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
                 </div>
         </div>
 
-        <div class="column" id="inprogress">
-            <h2>In Progress</h2>
-            <div class="task-container" id="inprogress-container"></div>
+        <div id="analytics-view" class="view-section" style="display: none;">
+            <div class="analytics-dashboard">
+                <div class="stat-card">
+                    <h3>Total Tasks</h3>
+                    <p class="stat-number" id="stat-total">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>To Do</h3>
+                    <p class="stat-number" id="stat-todo">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>In Progress</h3>
+                    <p class="stat-number" id="stat-inprogress">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <p class="stat-number success" id="stat-done">0</p>
+                </div>
+                <div class="stat-card alert">
+                    <h3>Overdue</h3>
+                    <p class="stat-number danger" id="stat-overdue">0</p>
+                </div>
+            </div>
         </div>
-
-        <div class="column" id="done">
-            <h2>Done</h2>
-            <div class="task-container" id="done-container"></div>
-        </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
