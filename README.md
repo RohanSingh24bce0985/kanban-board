@@ -8,6 +8,7 @@ Built with Node.js, Express, MongoDB, and Vanilla JavaScript.
 
 Ensure your files are organized exactly like this before running the application:
 
+'''text
 my-kanban-board/
 │
 ├── Backend/
