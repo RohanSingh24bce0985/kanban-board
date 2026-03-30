@@ -8,7 +8,7 @@ Built with Node.js, Express, MongoDB, and Vanilla JavaScript.
 
 Ensure your files are organized exactly like this before running the application:
 
-'''text
+```text
 my-kanban-board/
 │
 ├── Backend/
@@ -22,4 +22,3 @@ my-kanban-board/
 ├── login.html              # Authentication UI (Login / Register)
 ├── style.css               # Global styles & CSS Grid layouts
 └── script.js               # Frontend SPA controller & secure API fetcher
-'''
